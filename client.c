@@ -10,4 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
+#include "ft_printf.h"
 
+int	main(int argc, char **argv)
+{
+	int		pid;
+	char	*str;
+
+	if (argc != 3)
+	{
+		ft_printf("Expected: ./client <PID> <MESSAGE>\n");
+	}
+	pid = ft_atoi(argv[1]);
+	str = argv[2];
+	
+}
