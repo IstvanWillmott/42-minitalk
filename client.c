@@ -54,6 +54,11 @@ size_t	ft_strlen(char const *str)
 	return (count);
 }
 
+/*Each bit is converted into a 1 or 0 and transferred to each signal
+respectively. The int 'shift' is used to denote each of the 8 bits
+in a char. The program then sleeps for a short time to ensure the
+server adequate time to recieve the signal, before repeating the process.*/
+
 void	kill_bits(int pid, char *str, size_t len)
 {
 	int		shift;
@@ -70,11 +75,15 @@ void	kill_bits(int pid, char *str, size_t len)
 			else
 				kill(pid, SIGUSR1);
 			shift++;
-			usleep(50);
+			usleep(100);
 		}
 		i++;
 	}
 }
+
+/*The client takes an input in the form of a string <MESSAGE>, checks
+to ensure the input is correct, and pushes the string into kill_bits.
+When the server is started, it prints a PID, this is the PID used on input.*/
 
 int	main(int argc, char **argv)
 {

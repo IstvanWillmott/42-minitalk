@@ -23,6 +23,14 @@ typedef struct s_serverreceive
 
 t_serverreceive	g_message;
 
+/*Once a signal is receieved, each bit is converted back into a char. A global
+variable is used in this situation to keep track of each character. Notice
+the conversion is the opposite of how the char was deconstructed in client.
+Once the full bit string is recieved (when rec == 7 aka, we have recieved 8 bits)
+the character is printed, the global variables reset and the process 
+restarted until no more characters are received, upon which a newline
+is printed.*/
+
 void	bit_receive(int bit)
 {
 	g_message.c += ((bit & 1) << g_message.rec);
@@ -36,6 +44,10 @@ void	bit_receive(int bit)
 		g_message.rec = 0;
 	}
 }
+
+/*The server prints its PID, this is an identifier used by the client
+to transfer bits. It then enters a while loop where it continuously
+looks for signals. Once a signal is recieved it passes it to bit_receive.*/
 
 int	main(void)
 {
