@@ -5,33 +5,38 @@
 #                                                     +:+ +:+         +:+      #
 #    By: iwillmot <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/08/01 16:27:55 by iwillmot          #+#    #+#              #
-#    Updated: 2022/08/01 16:27:57 by iwillmot         ###   ########.fr        #
+#    Created: 2022/02/15 13:08:54 by iwillmot          #+#    #+#              #
+#    Updated: 2022/03/09 14:15:25 by iwillmot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-FLAGS = -Wall -Werror -Wextra
+NAME = libftprintf.a
+
+SRCS = src/ft_printf.c \
+	   src/ft_putstr.c \
+	   src/ft_putnum.c \
+	   src/ft_itoa.c \
+	   src/ft_hexadecimal.c \
+	   src/ft_putnum_unsigned.c \
+	   src/ft_putptr.c
+
 CC = gcc
 
-SERVER = server
-CLIENT = client
+FLAGS = -Wall -Wextra -Werror
 
-PRINTF = ft_printf
+OBJS = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror -I$(PRINTF)/includes -L$(PRINTF) -lftprintf
+INCLUDES = -I./includes/
 
-all:
-	@make -s -C $(PRINTF)
-	@gcc $(FLAGS) server.c -o $(SERVER)
-	@gcc $(FLAGS) client.c -o $(CLIENT)
-	@echo "Server And Client Are Ready!"
+$(NAME): $(OBJS)
+	ar -rcs $(NAME) $(OBJS)
 
-clean:
-	@make clean -s -C $(PRINTF)
+all : $(NAME)
 
-fclean: clean
-	@make fclean -s -C $(PRINTF)
-	@rm -f $(SERVER) $(CLIENT)
-	@echo "Server and Client Have Been Cleaned Successfully"
+clean :
+	rm -rf $(OBJS)
 
-re: fclean all
+fclean : clean
+	rm -rf $(NAME)
+
+re : fclean all
