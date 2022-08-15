@@ -24,7 +24,7 @@ all:
 	@make -s -C $(PRINTF)
 	@gcc $(FLAGS) server.c -o $(SERVER)
 	@gcc $(FLAGS) client.c -o $(CLIENT)
-	@echo "Server And Client Are Ready!"
+	@echo "Server and Client are ready."
 
 clean:
 	@make clean -s -C $(PRINTF)
@@ -32,6 +32,6 @@ clean:
 fclean: clean
 	@make fclean -s -C $(PRINTF)
 	@rm -f $(SERVER) $(CLIENT)
-	@echo "Server and Client Have Been Cleaned Successfully"
+	@echo "Server and Client cleaned."
 
 re: fclean all
